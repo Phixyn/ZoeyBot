@@ -7,3 +7,4 @@ build
 dist
 bot_log_debug.txt
 bot_log.txt
+.changes.txt
