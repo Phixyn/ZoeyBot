@@ -1,0 +1,130 @@
+--------------------------------------------------------------------
+	To-do list - ZoeyBot - Copyright 2012-2014 (c) Phixyn
+--------------------------------------------------------------------
+
+
+[ Documentation and housekeeping ]
+
+- Put author and version in tombstone comment?
+- Documentation
+- Add new commands to command_doc
+
+
+[ Urgent fixes ]
+
+- Ping timeout handler (for us, not other people's timeouts..) (hint: check for var connected = True / make else: connected = False on ping func)
+- We also need to handle getting kicked/banned from a server/channel
+- Fix the printing of smilies to the console (has to do with strip(":"))
+- Make a way to hide prog info (!bot_info from BasicCmds)
+- Auto join channels are not added to the list of channels the bot is currently in
+  + For example, if the bot automatically joins #general on connect (as set by the server), this won't be added to the bot channels list
+- !leave without parameters not working correctly
+
+
+[ Small fixes and additions ]
+
+- Background color for text (+ add to documentation on text formatting)
+- Print "Unknown command." to the console when a command is not recognised?
+
+
+[ print_data.py ]
+
+- Handler for printing /NAMES list on join (and maybe make a command too?)
+
+
+[ New commands ]
+
+- !me command (ACTION)
+- !who command
+    + Who
+    + Retrieves information about users (src: http://deoxy.org/chat/unreal.htm)
+    + Check src above for more commands to make.
+- !flip command (flip a coin) :D
+- !stats
+	+ more stats cmds
+- !roll command (improved !dice, see below at end of file)
+- !joke command
+- Rename !msg to !chat/!say ? 
+- !sendcmd or !action or !me ? (I prefer !sendcmd so we can change nick etc, but maybe !me too?)
+- Current action: Making a sandwich, gaming, etc...
+- Show current !topic command
+- Change topic command if op
+
+- Put !dice, !roll, !flip, etc into game_commands() ? + !help game ?
+- !memo command. Example scenario:
+  + User: !memo AnotherUser parties disband after combat, so that's probably what happened
+  + Bot: Alright, I'll let AnotherUser know.
+  + Sends memo as a private message to user.
+  + If user is offline, private message will be delivered to them when they comes online.
+- !seen command. Example scenario:
+  + User1: @seen User2
+  + Bot: (User1) User2 was last seen 1 hour, 42 minutes ago saying: the last message I typed was this
+  + User3: @seen Bot
+  + Bot: (User3) You need to get your eyes checked.
+  + User4: @seen User4
+  + Bot: (User4) Have you looked in a mirror lately?
+  + Achieved by searching logfile?
+  + Will have to check if logging is enabled
+
+
+[ New features ]
+
+- Create config file
+- Make !quit accept a quit reason
+- Chat reply handler / AI
+- Timezone converter
+- Google translate?
+- Fetch details from link (e.g. if it's a Youtube link, fetch vid title, same for Wikipedia, etc)
+- Weather
+- Google search top results
+- Log errors (maybe bot_errors.txt ?)
+- Point system for nick (for games and such)
+
+
+[ Bot AI ]
+
+- Make it reply to greetings to itself (e.g. "Hey Zoey") (and other messages to itself perhaps?)
+- Make greetings random based on list of strings
+- Maybe make it say random strings (that'll be in the file) everytime name is mentioned?
+- "How are you" replies
+- "likewise... I am heading to bed, goodnight all" << make it recognise the goodnight all string there
+- Message reply to "I'm back" or "back", etc.?
+
+
+[ For later ]
+
+- Improve Nickserv handler
+
+- Make settings array?
+    + Let user configure bot from file?
+- Improve Start screen and/or add UI (like menu with opts)
+- Chat response handler cont.
+
+- Vote command
+- Make join_chan() check if channel var is valid
+- Work on the NickServ handler
+- Add data validation, etc.
+- Improve commands by displaying helpful syntax/usage messages when what they type does not match params requirement, etc.
+
+- BotClient.disconnect()
+- BotClient.change_server()
+
+
+[ !roll command: (improved !dice) ]
+
+- Example scenario:
+  + Shu: !roll 1d6
+  + Bot: Shu rolled 1d6: 6  <Total: 6>
+  + User2: !roll 10d10
+  + Bot: weth rolled 10d10: 5 4 9 9 5 10 9 4 5 5  <Total: 65>
+  + User2: !roll 2d6+2
+  + Bot: weth rolled 2d6: 5 4  <Total: 9(+2) = 11>
+- Possible D&D dice command ideas from an IRC room:
+  + Is it possible to make a bot for a virtual tabletop? like virtual DM in D&D?
+  + The XdY type of dices
+  + you could also set XdY+Z for magic items, Z be 1,2 or 3 depending on the enchantment level..
+  + the battle maths would be done automatically
+  + the bot could hold player sheets with stats that could be displayed by PMing a certain command to the bot
+  + and update them according to the game's progress
+  + that would divide a casual D&D dungeon master into a story teller and a DM math bot
+  + which could ease up the rules quite a bit

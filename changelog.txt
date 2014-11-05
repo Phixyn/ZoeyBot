@@ -1,0 +1,52 @@
+--------------------------------------------------------------------
+	Changelog - ZoeyBot - Copyright 2012-2014 (c) Phixyn
+--------------------------------------------------------------------
+
+
+[ 07 June 2012 ]
+- Added echo_data() to replace repeating code (module: PrintData)
+
+[ 08 June 2012 ]
+- Added new stop() method to bot.py
+- Added a try...except block to main loop on bot.py
+  + Added KeyboardInterrupt exception that made the bot stop
+    gracefully using the new stop() method
+
+[ 15 June 2012 ]
+- Added console messages for KICK and TOPIC (module: PrintData)
+- Prints a message to the console when !quiet_mode is used (module: AdminCmds)
+- Started work on HTML documentation page
+
+[ 16 June 2012 ]
+- Created and improved several sections on the HTML documentation page
+- Improved/cleaned-up the README file
+- Moved file BotAI_Strings to modules/ directory
+- CTRL + C now gracefully stops the bot
+
+
+[ 07 Aug 2014 ]
+- A new dawn
+- Cleaned up and improved the README file
+- Moved changelog to a file of its own
+- Organized versions and backups
+- Changed file naming conventions, tombstone comments, etc
+- Cleaned up the code... removed semi-colons and useless parentheses
+- Replaced old string formatting with the .format() method
+- Improved clear_screen() method in modules/utils.py
+
+
+[ 20 Aug 2014 ]
+- Removed get_real_host() method from bot.py (moved to connect() method)
+- Added SERVPASS to bot.py __init__(). Changed zoey.py accordingly
+- Basic Twitch.tv IRC integration!!
+- Changed version format. 1 version every year. 2014 = v4
+- Made several improvements and changes to bot.py
+- Added command_handler() method in bot.py (Twitch.tv commands hype?!)
+
+
+[ 05 Nov 2014 ]
+- Added license info (GNU GPLv3)
+- Set up git
+- Pushed first commit to Github repository
+- Cleaned up and improved HTML docs
+- Cleaned up changelog and to-do files

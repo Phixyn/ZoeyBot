@@ -1,0 +1,160 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* -----------------------------------
+	DEFAULT / ELEMENTS
+----------------------------------- */
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #FFFFFF;
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1;
+}
+
+a, p, body {
+   font-family: "Lucida Grande",Verdana,"Bitstream Vera Sans",Arial,sans-serif;
+}
+
+p, body {
+	color: #000000;
+	font-size: 16px;
+	line-height: 150%;
+}
+
+p {
+	padding: 5px 10px;
+}
+
+h2, h3 {
+	font-family: "Trebuchet MS",Arial,sans-serif;
+    font-weight: bold;
+}
+
+h2 {
+	padding: 10px;
+    font-size: 24px;
+    line-height: 28px;
+}
+
+h3 {
+    padding: 10px 20px 10px 10px;
+    font-size: 18px;
+}
+
+ol, ul {
+	font-family: Verdana, Arial, serif;
+	font-size: 18px;
+	line-height: 125%;
+}
+
+ul {
+	padding-left: 60px;
+	list-style-type: square;
+}
+
+ol.index_main {
+	list-style-type: decimal;
+	margin: 10px 60px;
+}
+
+ol.index_sub {
+	list-style-type: decimal;
+	margin: 10px 40px;
+}
+
+.cmd_list_wrapper {
+	margin: 20px 60px;
+	padding: 7px 10px 7px 10px;
+}
+
+table.cmd_list {
+	width: 80%;
+}
+
+td {
+	border: 1px solid #333;
+	background-color: #DDD;
+	padding: 5px 10px;
+}
+
+td.cmd_name {
+	font-weight: bold;
+	width: 30%;
+}
+
+td.cmd_desc {
+	width: 40%;
+}
+
+.content {
+	padding-left: 30px;
+}
+
+.code_box {
+	border: 1px solid #333;
+	background-color: #DDD;
+	width: 70%;
+	margin: 20px 70px;
+	padding: 7px 10px 7px 10px;
+	font-family: 'dejavu sans mono', monaco, 'lucida console', 'courier new', monospace;
+	font-size: 14px;
+	line-height: 1.5em;
+	max-height: 24em;
+	overflow: auto;
+	white-space: pre;
+}
+
+

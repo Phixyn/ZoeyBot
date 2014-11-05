@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title> Documentation - ZoeyBot IRC Bot </title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+	<section style="border-bottom: 1px solid #000000; padding: 1% 0; margin-bottom: 1%; text-align:center;">
+		<h1 id="doc_title"> ZoeyBot </h1>
+		<p id="doc_info"><a href="http://www.phixyn.com" title="Official website"> http://www.phixyn.com </a><br />
+		Version: 4.0.0_DEV<br />
+		<b>Last doc update:</b> 05/11/2014</p>
+	</section>
+
+	<h2> Contents </h2>
+	<ol class="index_main">
+		<a href="#UserDoc" title="User Documentation"><li>User Documentation</li></a>
+		<ol class="index_sub">
+			<a href="#Intro" title="Introduction"><li>Introduction </li></a>
+			<a href="#Commands" title="Commands"><li>Commands</li></a>
+		</ol>
+
+		<a href="#TechDoc" title="Technical Documentation"><li>Technical Documentation</li></a>
+		<ol class="index_sub">
+			<a href="#CodeDoc" title="Code Documentation"><li>Code Documentation</li></a>
+			<a href="#TextFormat" title="Text Formatting"><li>Text Formatting</li></a>
+			<a href="#StatsFlags" title="STATS Flags"><li>STATS Flags</li></a>
+		</ol>
+	</ol>
+
+	<h2><a name="UserDoc">1. User Documentation</a></h2>
+	<h3><a name="Intro">Introduction</a></h3>
+	<p class="content"> Content pending. </p>
+
+	<h3><a name="Commands">Commands</a></h3>
+
+	<p class="content"> <b>Basic commands:</b> </p>
+	<div class="cmd_list_wrapper">
+		<table class="cmd_list">
+			<tr style="height:50px;">
+				<td>Command [parameters] (optional parameters)</td>
+				<td style="text-align:center;">Description</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!help</td>
+				<td class="cmd_desc">Displays a list of available commands.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!hello</td>
+				<td class="cmd_desc">Sends a greeting message to the user who types it.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!ping</td>
+				<td class="cmd_desc">PONG!! (Useless...)</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!dice</td>
+				<td class="cmd_desc">Rolls a dice for the user who types it, and displays the result.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!stst</td>
+				<td class="cmd_desc">Sends a request to the server for uptime stats.<br />
+				The reply the server sends is handled by the reply_handler function which then sends the stats back on the rplChan (reply channel)</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!bot_chans</td>
+				<td class="cmd_desc">Displays a list of channels the bot is currently on.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!bot_owner</td>
+				<td class="cmd_desc">Displays the bot owner's nick.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!bot_info</td>
+				<td class="cmd_desc">Displays information about the bot, such as version and credits.</td>
+			</tr>
+			<!--
+			<tr>
+				<td class="cmd_name">!cmd [params]</td>
+				<td class="cmd_desc">Description</td>
+			</tr>
+			-->
+		</table>
+	</div>
+
+	<p class="content"> <b>Admin commands:</b><br />Only the owner of the bot can use these commands.</p>
+	<div class="cmd_list_wrapper">
+		<table class="cmd_list">
+			<tr style="height:50px;">
+				<td>Command [parameters] (optional parameters)</td>
+				<td style="text-align:center;">Description</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!msg [channel/nick] [message]</td>
+				<td class="cmd_desc">Description</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!join [channel] (channel2) (...)</td>
+				<td class="cmd_desc">Joins the channel(s) passed in the parameters. At least one channel must be specified.<br />This command also appends the channel name onto a list. You can use the command !bot_chans to view the list of channels your bot is currently on.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!leave (channel) (...)</td>
+				<td class="cmd_desc">Leaves the channel(s) passed in the parameters. If no channel is specified, it leaves the current channel. <br />This command will remove the channel(s) from the !bot_chans list.</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!quiet_mode</td>
+				<td class="cmd_desc">Description</td>
+			</tr>
+			<tr>
+				<td class="cmd_name">!quit</td>
+				<td class="cmd_desc">Quits the server, closes the socket connection and gracefully exits Python.</td>
+			</tr>
+		</table>
+	</div>
+
+
+<h2><a name="TechDoc">2. Technical Documentation</a></h2>
+	<h3><a name="CodeDoc">Code documentation</a></h3>
+
+	<p class="content"> <b>Connection main loop:</b> </p>
+	<p class="code_box">
+self.readBuffer = self.readBuffer + self.sock.recv(1024);	# Append data received to our readbuffer
+self.dataStream = self.readBuffer.split("\n");              	# Split using newlines as a separator and store it
+
+self.readBuffer = self.dataStream.pop();        # Store incomplete (strings) data back on the readbuffer (and remove it from 
+	             				# complete data using .pop(), so that when the loop goes back to recv(1024)
+                                                # it'll receive and store the rest of the data on our readbuffer var.
+
+for line in self.dataStream:
+line = line.rstrip();   # Remove \r (could've done on split(), but not all IRC servs comply with RFC, so we
+			# need to treat it as optional and not take it for granted
+
+line = line.split();    # Split the string of data into an array using a space as the separator
+	                # This is useful for handling packets! We will use join() to print data, however
+
+	</p>
+
+	<p class="content"> <b>Chat reply handler doc:</b> <br />
+	Note: Not in use anymore/yet until new chat reply handler is made. <br /></p>
+	<p class="code_box">
+def chat_reply_handler(self, data):
+
+    """ Replies to certain messages by users """
+
+    userNick = data[0][0:' '.join(data).find("!")].lstrip(":");     # Who sent the message?
+
+    if(' '.join(data[3:])[1:].lower() in self.AI_GREET_LIST):
+
+        # ----- Greetings handler -----
+        #
+        # Check if the message matches *exactly* any greeting in our list
+        #
+        # This is done so that the bot can ignore greets from users to
+        # other users, and also to decrease its spamming.
+
+        self.sock.send("PRIVMSG %s Heya %s, how are you today? (:\r\n" % (data[2], userNick));
+
+    elif(' '.join(data).find("JOIN") != -1 and userNick != self.NICK):
+
+        # Greetings on join. userNick != self.NICK is there to prevent the
+        # bot from greeting itself when it joins a channel
+
+        self.sock.send("PRIVMSG %s Hey %s (:\r\n" % (data[2].lstrip(":"), userNick));
+
+    elif(' '.join(data[3:])[1:].lower() in self.AI_BYE_LIST):
+
+        self.sock.send("PRIVMSG %s Bye %s, have a nice day! (:\r\n" % (data[2], userNick));
+
+	</p>
+
+	<p class="content"> <b>Failed !vote cmd:</b> <br />
+	Note: Not in use anymore/yet until new !vote command is made. <br /></p>
+	<p class="code_box">
+elif(cmd == "!vote" and len(params) != 0):
+    #       Command !vote (text)
+    # Starts a vote for the user who typed it.
+    # Other users in the chat can then use !y or !n to vote within 30 seconds.
+    # Once 30 seconds are over, the bot displays the results of the vote.
+    
+    proposal = ' '.join(params);
+
+    self.sock.send("PRIVMSG %s %s has voted to %s. Type !y to vote Yes, or !n to vote No.\r\n" % (channel, userNick, proposal));
+    self.sock.send("PRIVMSG %s 30 seconds left to vote.\r\n" % (channel));
+
+    startTime = dt.now();                       # Vote starts now
+    startVote = startTime.second;               # The exact second
+    endTime = datetime.timedelta(seconds=30);   # It'll last 30 seconds; timedelta allows us to perform
+                                                # the arithmetic needed to add this and get the end time
+    endVote = (startTime + endTime).second;     # Add the 30 seconds and get the time of vote ending
+
+    while(startVote <= endVote):
+        print(data[3]);
+        startVote = dt.now().second;
+    
+    #self.sock.send("PRIVMSG %s Yes: %d, No: %d\r\n" % (channel, yesVotes, noVotes));
+
+	</p>
+
+	<h3><a name="TextFormat">Text formatting</a></h3>
+	<p class="content">
+		chr(1) = ACTION -- example: PRIVMSG &lt;channel&gt; :chr(1)ACTION &lt;what you want to do&gt;chr(1) <br />
+		chr(2) = bold text -- example: PRIVMSG &lt;channel&gt; chr(2)This is bold <br />
+		chr(3)&lt;00-15&gt; = color text, from 0 to 15. -- example: PRIVMSG &lt;channel&gt; chr(3)02This text is dark blue <br />
+		chr(15) = no formatting -- example: PRIVMSG &lt;channel&gt; chr(2)This is bold, chr(int(hex(15), 16))but this isn't. <br />
+		chr(22) = italics/reversed (doesn't seem to show on Pidgin) <br />
+		chr(31) = underlined text
+	</p>
+
+	<p class="content">
+	<b>Colors for chr(3):</b><br />
+	<ul>
+		<li style="color: #000000;">1 - Black</li>
+		<li style="color: #000080;">2 - Navy Blue</li>
+		<li style="color: #008000;">3 - Green</li>
+		<li style="color: #FF0000;">4 - Red</li>
+		<li style="color: #804040;">5 - Brown</li>
+		<li style="color: #8000FF;">6 - Purple</li>
+		<li style="color: #808000;">7 - Olive</li>
+		<li style="color: #FFFF00;">8 - Yellow</li>
+		<li style="color: #00FF00;">9 - Lime Green</li>
+		<li style="color: #008080;">10 - Teal</li>
+		<li style="color: #00FFFF;">11 - Aqua Light</li>
+		<li style="color: #0000FF;">12 - Royal Blue</li>
+		<li style="color: #FF00FF;">13 - Hot Pink</li>
+		<li style="color: #808080;">14 - Dark Gray</li>
+		<li style="color: #C0C0C0;">15 - Light Gray</li>
+		<li style="color: #000000;">16 - White</li>
+	</ul>
+	</p>
+	
+	<h3><a name="StatsFlags">STATS flags</a></h3>
+	<p class="code_box">STATS flags, for future stats commands (such as !uptime)
+	
+ B - banversion - Send the ban version list
+ b - badword - Send the badwords list
+ C - link - Send the link block list
+ d - denylinkauto - Send the deny link (auto) block list
+ D - denylinkall - Send the deny link (all) block list
+ e - exceptthrottle - Send the except throttle block list
+ E - exceptban - Send the except ban and except tkl block list
+ f - spamfilter - Send the spamfilter list
+ F - denydcc - Send the deny dcc and allow dcc block lists
+ G - gline - Send the gline and gzline list
+  Extended flags: [+/-mrs] [mask] [reason] [setby]
+  m Return glines matching/not matching the specified mask
+  r Return glines with a reason matching/not matching the specified reason
+  s Return glines set by/not set by clients matching the specified name
+ I - allow - Send the allow block list
+ j - officialchans - Send the offical channels list
+ K - kline - Send the ban user/ban ip/except ban block list
+ l - linkinfo - Send link information
+ L - linkinfoall - Send all link information
+ M - command - Send list of how many times each command was used
+ n - banrealname - Send the ban realname block list
+ O - oper - Send the oper block list
+ P - port - Send information about ports
+ q - bannick - Send the ban nick block list
+ Q - sqline - Send the global qline list
+ r - chanrestrict - Send the channel deny/allow block list
+ S - set - Send the set block list
+ s - shun - Send the shun list
+  Extended flags: [+/-mrs] [mask] [reason] [setby]
+  m Return shuns matching/not matching the specified mask
+  r Return shuns with a reason matching/not matching the specified reason
+  s Return shuns set by/not set by clients matching the specified name
+ t - tld - Send the tld block list
+ T - traffic - Send traffic information
+ u - uptime - Send the server uptime and connection count
+ U - uline - Send the ulines block list
+ v - denyver - Send the deny version block list
+ V - vhost - Send the vhost block list
+ X - notlink - Send the list of servers that are not current linked
+ Y - class - Send the class block list
+ Z - mem - Send memory usage information
+ 
+	</p>
+
+</body>
+</html>

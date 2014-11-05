@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+"""
+zoey - ZoeyBot IRC Bot
+
+ZoeyBot - Python IRC Bot
+Copyright 2012-2014 (c) Phixyn
+
+This file is part of ZoeyBot.
+
+ZoeyBot is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+ZoeyBot is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ZoeyBot. If not, see <http://www.gnu.org/licenses/>.
+"""
+
+from bot import Bot
+
+# Will get this from config file in the future
+
+# freenode = Bot("irc.freenode.net", 6667, "ZoeyBot", None, "Phixyn", "#phixtest")
+# freenode.start()
+# bot = Bot("phixyn.com", 6667, "Zoey", None, "Phixyn", "#phixtest")
+# bot.start()
+# dev_bot = Bot("phixyn.com", 6667, "Zoey_dev", None, "Phixyn", "#phixtest")
+# dev_bot.start()
+localbot = Bot("localhost", 6667, "Zoey_dev", None, "Phixyn", "#phixtest")
+localbot.start()
