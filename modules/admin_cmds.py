@@ -24,7 +24,7 @@ import os
 import utils
 from print_data import *
 
-cmdList = ["!msg [channel/nick] [message]", "!join [channel] (channel2) (...)", "!leave (channel) (...)", "!quiet_mode", "!quit"]
+cmdList = ["!msg", "!join", "!leave", "!quiet_mode", "!quit"]
 
 def handle_command(bot, data):
 	""" Documentation pending. """
@@ -34,19 +34,18 @@ def handle_command(bot, data):
 	cmd = data[3].lstrip(":")
 	params = data[4:] if len(data) > 3 else None  # Obtain command parameters if there are any.
 
-	# cmdList = ["!msg [channel/nick] [message]", "!join [channel] (channel2) (...)", "!leave (channel) (...)", "!quiet_mode", "!quit"]
-
-	if cmd == "!msg" and userNick == bot.OWNER:
+	# ----- Commands: -----
+	if cmd.lower() == "!msg" and userNick == bot.OWNER:
 		if len(params) != 0:
 			bot.send_data("PRIVMSG {0} {1}{2}\r\n".format(params[0], bot.textFormat, ' '.join(params[1:])))
 		else:
 			bot.send_data("PRIVMSG {0} {1}Usage: !msg [channel/user] [message]\r\n".format(userNick, bot.textFormat))
 
-	elif cmd == "!join" and len(params) != 0 and userNick == bot.OWNER:
+	elif cmd.lower() == "!join" and len(params) != 0 and userNick == bot.OWNER:
 		for chan in params:
 			bot.join_chan(chan)
 
-	elif cmd == "!leave" and userNick == bot.OWNER:
+	elif cmd.lower() == "!leave" and userNick == bot.OWNER:
 		if len(params) == 0:
 			# Leaves current channel if no channels are specified
 			bot.send_data("PART {0}\r\n".format(bot.rplChan))
@@ -59,20 +58,15 @@ def handle_command(bot, data):
 				if chan in bot.botChannels:
 					bot.botChannels.remove(chan)
 	
-	elif cmd == "!quiet_mode" and userNick == bot.OWNER:
+	elif cmd.lower() == "!quiet_mode" and userNick == bot.OWNER:
 		bot.quietMode = True if bot.quietMode == False else False
 		echo_data("{0} [ZOEY] Quiet mode has been set to: {1}.".format(utils.timestamp(), bot.quietMode), bot.enableLog)
 
-	elif cmd == "!quit" and userNick == bot.OWNER:
-		# To-Do:
-		# - Make it accept and handle a /quit reason
-		#   + bot.stop(reason) ?
-		# - Make it privmsg a random "I'm gonna: " string
-
+	elif cmd.lower() == "!quit" and userNick == bot.OWNER:
 		bot.stop()
 
-	elif cmd.lower() == "!help" and len(params) != 0 and params[0] == "admin":
-		bot.send_data("PRIVMSG {0} {1}ZoeyBot admin commands:\r\n".format(bot.rplChan, bot.textFormat))
-		bot.send_data("PRIVMSG {0} {1}You must be the current bot owner in order to use these.\r\n".format(bot.rplChan, bot.textFormat))
-		bot.send_data("PRIVMSG {0} {1}{2}\r\n".format(bot.rplChan, bot.textFormat, ', '.join(cmdList)))
+#	elif cmd.lower() == "!help" and len(params) != 0 and params[0] == "admin":
+#		bot.send_data("PRIVMSG {0} {1}ZoeyBot admin commands:\r\n".format(bot.rplChan, bot.textFormat))
+#		bot.send_data("PRIVMSG {0} {1}You must be the current bot owner in order to use these.\r\n".format(bot.rplChan, bot.textFormat))
+#		bot.send_data("PRIVMSG {0} {1}{2}\r\n".format(bot.rplChan, bot.textFormat, ', '.join(cmdList)))
 
