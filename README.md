@@ -15,12 +15,11 @@ License information and changelog can be found on the top level directory, under
 
 ### Release details
 
-Version:        0.0.3
-Written by:     Phixyn (http://phixyn.com/blog)
-
-Date started:   31/03/2012
-Last release:   16/02/2016
-Current stage:  Alpha
+* Version:        0.0.3
+* Written by:     Phixyn (http://phixyn.com/blog)
+* Date started:   31/03/2012
+* Last release:   16/02/2016
+* Current stage:  Alpha
 
 Developed with `Python 2.7` _(currently being ported to `Python 3` as part of v1.0.0 milestone)._
 
