@@ -8,19 +8,20 @@ __version__ = "0.1.0"
 
 import json
 import sys
-from util.logging import log_message
-from util.logging import logger
+
+from util.logging import app_logger
+from util.logging import message_logger
 
 import discord
 
 
 class ZoeyCord(discord.Client):
     async def on_ready(self):
-        logger.info("Logged in as {0}.".format(self.user))
+        app_logger.info("Logged in as {0}.".format(self.user))
     
     async def on_message(self, message: str):
-        log_message(
-            "[#{msg.channel.name}] {msg.author.nick}: {msg.content}".format(
+        message_logger.info(
+            "[#{msg.channel.name}] {msg.author.display_name}: {msg.content}".format(
                 msg=message
             )
         )
@@ -32,21 +33,21 @@ class ZoeyCord(discord.Client):
 
 
 def load_config():
-    logger.debug("Loading config file...")
+    app_logger.debug("Loading config file...")
 
     config = None
     try:
         with open("config.json", "r") as fob:
             config = json.loads(fob.read())
     except FileNotFoundError as ex:
-        logger.critical("Config file not present. Please use and modify the example one.")
+        app_logger.critical("Config file not present. Please use and modify the example one.")
         sys.exit(1)
     except json.decoder.JSONDecodeError as ex:
-        logger.critical("Could not parse config file. Please check that it is a valid JSON file.")
+        app_logger.critical("Could not parse config file. Please check that it is a valid JSON file.")
         sys.exit(1)
 
     if not config:
-        logger.critical("Could not load config file. Please check that it exists and is a valid JSON file.")
+        app_logger.critical("Could not load config file. Please check that it exists and is a valid JSON file.")
         sys.exit(1)
 
     return config
