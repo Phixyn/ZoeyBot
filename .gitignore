@@ -212,4 +212,10 @@ $RECYCLE.BIN/
 
 ### Project specific ###
 logs/
+screenshots/
 config.json
+intents.json
+*.pickle
+*.tflearn*
+checkpoint
+neural_network_neuralnine/

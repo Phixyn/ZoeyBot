@@ -31,6 +31,19 @@ For developers/contributors there is also a set of technical documentation. Plea
 
 See also `doc/to-do.txt` if you're willing to help with new features and bug fixes!
 
-### More coming soon
+### Setup
 
-This project hasn't been worked on since 2014, finally being resurrected in February 2016. A lot more exciting features are on the way!
+From virtual env:
+
+1. `pip install -r requirements.txt`
+
+2. `python`
+
+3. 
+    ```python
+    import nltk
+    nltk.download("punkt")
+    exit()
+    ```
+
+    Need to automate that somehow lule
