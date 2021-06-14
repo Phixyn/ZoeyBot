@@ -14,6 +14,8 @@ from util.logging import message_logger
 
 import discord
 
+from neural_network_tim import neural_net
+
 
 class ZoeyCord(discord.Client):
     async def on_ready(self):
@@ -26,10 +28,16 @@ class ZoeyCord(discord.Client):
             )
         )
         if message.author != self.user:
+            channel = client.get_channel(message.channel.id)
             # Respond to messages received by other users
-            if "hello" in message.content.lower():
-                channel = client.get_channel(message.channel.id)
-                await channel.send("Hello! :3")
+            reply = neural_net.predict(message.content)
+            if not reply:
+                # await channel.send("Soz I dunt get it")
+                app_logger.info("Did not find suitable intent tag for sentence.")
+            else:
+                await channel.send(reply)
+            # channel = client.get_channel(message.channel.id)
+            # await channel.send(reply)
 
 
 def load_config():
